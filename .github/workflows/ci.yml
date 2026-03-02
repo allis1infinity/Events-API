@@ -19,7 +19,7 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker run -d -p 5000:5000 --name events-api-container events-api
+          docker run -d -p 5000:5000 --name events-api-container events-api:latest
           sleep 5
 
       - name: Confirm API is responding
@@ -36,5 +36,9 @@ jobs:
 
       - name: Run tests
         run: pytest -v
+
+      - name: Cleanuo container
+        if: always()
+        run: docker rm -f events-api-container
 
 
